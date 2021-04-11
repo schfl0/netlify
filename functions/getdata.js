@@ -35,7 +35,7 @@ const pushToDatabase = async (db, data) => {
 	};
 
 	if (pushData.title && pushData.body) {
-		await db.collection('data').insert(JSON.stringify(data));
+		await db.collection('data').insert([data]);
 		return {
 			statusCode: 201
 		};
