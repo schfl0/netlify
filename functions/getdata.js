@@ -47,7 +47,12 @@ const deleteFromDatabase = async function (db, data) {
 		id: data._id
 	};
 	if (deleteData.id) {
-		await db.collection('data').deleteOne({ _id: 'data._id' });
+		await db.collection('data').deleteOne({ _id: ObjectId(data._id) });
+		return {
+			statusCode: 201
+		};
+	} else {
+		return { statusCode: 422 };
 	}
 };
 
