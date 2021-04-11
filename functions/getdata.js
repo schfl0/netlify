@@ -1,8 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
-
 const MONGODB_URI = process.env.MONGODB_URI;
 const DB_NAME = process.env.DB_NAME;
-
 let cachedDb = null;
 
 const connectToDatabase = async (uri) => {
@@ -44,6 +42,15 @@ const pushToDatabase = async (db, data) => {
 	}
 };
 
+const deleteFromDatabase = async function (db, data) {
+	const deleteData = {
+		id: data._id
+	};
+	if (deleteData.id) {
+		await db.collection('data').deleteOne({ _id: data._id });
+	}
+};
+
 exports.handler = async function (event, context) {
 	context.callbackWaitsForEmptyEventLoop = false;
 	const db = await connectToDatabase(MONGODB_URI);
@@ -52,6 +59,8 @@ exports.handler = async function (event, context) {
 			return queryDatabase(db);
 		case 'POST':
 			return pushToDatabase(db, JSON.parse(event.body));
+		case 'DELETE':
+			return deleteFromDatabase(db, JSON.parse(event.body));
 		default:
 			return { statusCode: 400 };
 	}
