@@ -9,12 +9,11 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <h1>MongoDB</h1>
+    <h1>MongoDB (Netlify Functions)</h1>
     <div class="show-container">
         <h2>Show Data</h2>
-        <p>Data</p>
-        <ul id="data">
-        </ul>
+        <p>Data:</p>
+        <div id="data-div"></div>
     </div>
     <div class="add-container">
         <h2>Add Data</h2>
@@ -27,8 +26,8 @@
                 <label for="body">Body</label>
                 <input type="text" id="body" name="body">
             </div>
-            <button>Add</button>
         </form>
+        <button id="btn-add">Add</button>
     </div>
 
 </body>
